@@ -15,7 +15,7 @@ namespace PokemonPaint.Command
             drawing.PokemonList.Remove(pokemon.ID);
         }
 
-        public override void Undo(Drawing drawing)
+        protected override void UndoCommand(Drawing drawing)
         {
             drawing.PokemonList.Add(pokemon.ID, pokemon);
         }

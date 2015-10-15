@@ -17,15 +17,13 @@ namespace PokemonPaint.View
         public Image BackgroundImage { get; set; }
         public Color BackgroundColor { get; set; }
         public Rectangle Canvas { get; set; }
-
-        private Stack<Command.Command> Commands { get; set; }
+        
         private Graphics graphics;
 
         private Drawing(Graphics g, Rectangle canvas, Color backgroundColor)
         {
             graphics = g;
             PokemonList = new Dictionary<int, Pokemon>();
-            Commands = new Stack<Command.Command>();
             Canvas = canvas;
             BackgroundColor = backgroundColor;
 
@@ -59,8 +57,7 @@ namespace PokemonPaint.View
 
         public void Undo()
         {
-            if (Commands.Count > 0)
-                Commands.Pop().Undo(this);
+            Command.Command.Undo(this);
         }
     }
 }

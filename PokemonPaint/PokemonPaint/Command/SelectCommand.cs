@@ -20,9 +20,10 @@ namespace PokemonPaint.Command
                 drawing.SelectedPokemon = drawing.PokemonList[pokemon.ID];
             else
                 drawing.SelectedPokemon = pokemon;
+            base.Execute(drawing);
         }
 
-        public override void Undo(Drawing drawing)
+        protected override void UndoCommand(Drawing drawing)
         {
             drawing.SelectedPokemon = oldPokemon;
         }

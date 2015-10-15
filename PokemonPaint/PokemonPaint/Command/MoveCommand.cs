@@ -20,7 +20,7 @@ namespace PokemonPaint.Command
 
         }
 
-        public override void Undo(Drawing drawing)
+        protected override void UndoCommand(Drawing drawing)
         {
             drawing.PokemonList[pokemon.ID].Location = oldLocation;
         }

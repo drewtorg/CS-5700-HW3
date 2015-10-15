@@ -10,9 +10,20 @@ namespace PokemonPaint.Command
 {
     public abstract class Command
     {
+        protected static Stack<Command> history = new Stack<Command>();
         public Pokemon pokemon;
 
-        public abstract void Execute(Drawing drawing);
-        public abstract void Undo(Drawing drawing);
+        public virtual void Execute(Drawing drawing)
+        {
+            history.Push(this);
+        }
+
+        public static void Undo(Drawing drawing)
+        {
+            if (history.Count > 0)
+                history.Pop().UndoCommand(drawing);
+        }
+
+        protected abstract void UndoCommand(Drawing drawing);
     }
 }
