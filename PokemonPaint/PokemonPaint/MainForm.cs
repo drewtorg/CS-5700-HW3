@@ -19,17 +19,17 @@ namespace PokemonPaint
     {
         public enum Mode { Selection, Creation };
 
-        Graphics Graphics { get; set; }
-        Mode mode { get; set; }
-        Pokemon.PokemonType SelectedType { get; set; }
-        Point LastClick { get; set; }
-        Drawing Drawing { get; set; }
+        public Graphics Graphics { get; set; }
+        public Mode mode { get; set; }
+        public Pokemon.PokemonType SelectedType { get; set; }
+        public Point LastClick { get; set; }
+        public Drawing Drawing { get; set; }
 
         public MainForm()
         {
             InitializeComponent();
             Graphics = CreateGraphics();
-            Drawing = new Drawing(Graphics);
+            Drawing = Drawing.Create(Graphics, Color.GhostWhite);
             mode = Mode.Selection;
             SelectedType = Pokemon.PokemonType.Bulbasaur;
         }
@@ -40,14 +40,44 @@ namespace PokemonPaint
 
             if(newDialog.ShowDialog() == DialogResult.OK)
             {
-                BackColor = newDialog.Color;
+                Drawing = Drawing.Create(Graphics, newDialog.Color);
             }
-            
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            Close();
+            if (Drawing.Canvas.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
+            {
+                LastClick = e.Location;
+                switch (mode)
+                {
+                    case Mode.Creation:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Create, PokemonFactory.Create(SelectedType, LastClick)));
+                        break;
+                    case Mode.Selection:
+                        Pokemon selected = null;
+                        foreach (Pokemon pokemon in Drawing.PokemonList.Values)
+                        {
+                            if (pokemon.Rectangle.IntersectsWith(new Rectangle(LastClick, new Size(1, 1))))
+                            {
+                                selected = pokemon;
+                                break;
+                            }
+                        }
+                        //moving a pokemon
+                        //if (selected == null && Drawing.SelectedPokemon != null)
+                        //{
+                        //    selected = Drawing.SelectedPokemon;
+                        //    selected.Location = LastClick;
+                        //    Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Move, selected));
+                        //    break;
+                        //}
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Select, selected));
+                        break;
+                }
+
+                Drawing.RefreshDrawing();
+            }
         }
 
         private void cursorBtn_Click(object sender, EventArgs e)
@@ -92,13 +122,9 @@ namespace PokemonPaint
             mode = Mode.Creation;
         }
 
-        private void MainForm_MouseUp(object sender, MouseEventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LastClick = e.Location;
-            if (mode == Mode.Creation)
-                Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Create, PokemonFactory.Create(SelectedType, LastClick)));
-
-            Drawing.RefreshDrawing();
+            Close();
         }
     }
 }

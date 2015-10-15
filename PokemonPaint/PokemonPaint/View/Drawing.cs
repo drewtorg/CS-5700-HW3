@@ -13,21 +13,42 @@ namespace PokemonPaint.View
     public class Drawing
     {
         public Dictionary<int, Pokemon> PokemonList { get; set; }
+        public Pokemon SelectedPokemon { get; set; }
+        public Image BackgroundImage { get; set; }
+        public Color BackgroundColor { get; set; }
+        public Rectangle Canvas { get; set; }
+
         private Stack<Command.Command> Commands { get; set; }
         private Graphics graphics;
 
-        public Drawing(Graphics g)
+        private Drawing(Graphics g, Rectangle canvas, Color backgroundColor)
         {
             graphics = g;
             PokemonList = new Dictionary<int, Pokemon>();
             Commands = new Stack<Command.Command>();
+            Canvas = canvas;
+            BackgroundColor = backgroundColor;
+
+            RefreshDrawing();
+        }
+
+        public static Drawing Create(Graphics g, Color backgroundColor)
+        {
+            return new Drawing(g, new Rectangle(new Point(64, 27), new Size(627, 349)), backgroundColor);
         }
 
         public void RefreshDrawing()
         {
-            foreach(Pokemon pokemon in PokemonList.Values)
+            graphics.FillRectangle(new SolidBrush(BackgroundColor), Canvas);
+            foreach (Pokemon pokemon in PokemonList.Values)
             {
                 graphics.DrawImage(pokemon.Model.Image, pokemon.Rectangle);
+            }
+
+            if (SelectedPokemon != null)
+            {
+                graphics.DrawRectangle(Pens.Black, SelectedPokemon.Rectangle);
+                graphics.DrawImage(SelectedPokemon.Model.Image, SelectedPokemon.Rectangle);
             }
         }
 

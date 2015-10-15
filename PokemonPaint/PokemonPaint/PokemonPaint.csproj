@@ -52,6 +52,7 @@
     <Compile Include="Command\CreateCommand.cs" />
     <Compile Include="Command\DeleteCommand.cs" />
     <Compile Include="Command\MoveCommand.cs" />
+    <Compile Include="Command\SelectCommand.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

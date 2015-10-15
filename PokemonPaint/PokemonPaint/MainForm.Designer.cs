@@ -108,7 +108,7 @@
             this.cursorBtn.Location = new System.Drawing.Point(13, 27);
             this.cursorBtn.Name = "cursorBtn";
             this.cursorBtn.Size = new System.Drawing.Size(45, 45);
-            this.cursorBtn.TabIndex = 8;
+            this.cursorBtn.TabIndex = 1;
             this.cursorBtn.UseVisualStyleBackColor = true;
             this.cursorBtn.Click += new System.EventHandler(this.cursorBtn_Click);
             // 
@@ -168,7 +168,7 @@
             this.bulbasaurBtn.Location = new System.Drawing.Point(12, 78);
             this.bulbasaurBtn.Name = "bulbasaurBtn";
             this.bulbasaurBtn.Size = new System.Drawing.Size(45, 45);
-            this.bulbasaurBtn.TabIndex = 1;
+            this.bulbasaurBtn.TabIndex = 8;
             this.bulbasaurBtn.UseVisualStyleBackColor = true;
             this.bulbasaurBtn.Click += new System.EventHandler(this.bulbasaurBtn_Click);
             // 
