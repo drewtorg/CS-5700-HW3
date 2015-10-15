@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PokemonPaint.View;
+
 namespace PokemonPaint.Command
 {
     public class DeleteCommand : Command
     {
-        public override void Execute()
+        public override void Execute(Drawing drawing)
         {
-            throw new NotImplementedException();
+            drawing.PokemonList.Remove(pokemon.ID);
         }
 
-        public override void Undo()
+        public override void Undo(Drawing drawing)
         {
-            throw new NotImplementedException();
+            drawing.PokemonList.Add(pokemon.ID, pokemon);
         }
     }
 }

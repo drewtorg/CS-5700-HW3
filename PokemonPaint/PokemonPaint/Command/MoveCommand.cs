@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+
+using PokemonPaint.View;
 
 namespace PokemonPaint.Command
 {
     public class MoveCommand : Command
     {
-        public override void Execute()
+        private Point oldLocation;
+        
+        public override void Execute(Drawing drawing)
         {
-            throw new NotImplementedException();
+            oldLocation = drawing.PokemonList[pokemon.ID].Location;
+            drawing.PokemonList[pokemon.ID].Location = pokemon.Location;
+
         }
 
-        public override void Undo()
+        public override void Undo(Drawing drawing)
         {
-            throw new NotImplementedException();
+            drawing.PokemonList[pokemon.ID].Location = oldLocation;
         }
     }
 }

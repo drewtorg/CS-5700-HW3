@@ -6,18 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
+using PokemonPaint.Command;
+
 namespace PokemonPaint.View
 {
-    public class Drawing : IEnumerable<PokemonModel>
+    public class Drawing
     {
-        public IEnumerator<PokemonModel> GetEnumerator()
+        public Dictionary<int, Pokemon> PokemonList { get; set; }
+        private Stack<Command.Command> Commands { get; set; }
+
+        public void Do(Command.Command c)
         {
-            throw new NotImplementedException();
+            c.Execute(this);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public void Undo()
         {
-            throw new NotImplementedException();
+            if (Commands.Count > 0)
+                Commands.Pop().Undo(this);
         }
     }
 }

@@ -1,34 +1,20 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PokemonPaint.View;
+using System.Drawing;
 
-namespace PokemonPaint.Model
+using PokemonPaint.Model;
+
+namespace PokemonPaint.View
 {
-    public class PokemonFactory
+    public static class PokemonFactory
     {
-        private ConcurrentDictionary<Pokemon.PokemonType, PokemonModel> pokemon = null;
-        private object myLock = new object();
-
-        public PokemonModel Create(Pokemon.PokemonType type)
+        private static int count = 0;
+        public static Pokemon Create(Pokemon.PokemonType type, Point location, Size size)
         {
-            lock(myLock)
-            {
-                if (pokemon == null)
-                {
-                    pokemon = new ConcurrentDictionary<Pokemon.PokemonType, PokemonModel>();
-                }
-            }
-            if (pokemon.Keys.Contains(type))
-                return pokemon[type].GetInstance();
-            else
-            {
-                pokemon.AddOrUpdate(type, Pokemon.GetInstance());
-            }
-            return 
+            return new Pokemon { Location = location, Size = size, Model = PokemonModelFactory.Create(type), ID = count++ };
         }
     }
 }

@@ -9,13 +9,14 @@ using PokemonPaint.Model;
 
 namespace PokemonPaint.View
 {
-    public abstract class Pokemon
+    public class Pokemon
     {
         public enum PokemonType { Bulbasaur, Charmander, Squirtle, Pikachu, Slowpoke, Diglett };
 
+        public int ID { get; set; }
         public PokemonModel Model { get; set; }
         public Point Location { get; set; }
         public Size Size { get; set; }
-
+        public Rectangle Rectangle { get { return new Rectangle(Location, Size); } }
     }
 }
