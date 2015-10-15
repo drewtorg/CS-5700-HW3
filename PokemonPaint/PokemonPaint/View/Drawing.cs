@@ -14,6 +14,22 @@ namespace PokemonPaint.View
     {
         public Dictionary<int, Pokemon> PokemonList { get; set; }
         private Stack<Command.Command> Commands { get; set; }
+        private Graphics graphics;
+
+        public Drawing(Graphics g)
+        {
+            graphics = g;
+            PokemonList = new Dictionary<int, Pokemon>();
+            Commands = new Stack<Command.Command>();
+        }
+
+        public void RefreshDrawing()
+        {
+            foreach(Pokemon pokemon in PokemonList.Values)
+            {
+                graphics.DrawImage(pokemon.Model.Image, pokemon.Rectangle);
+            }
+        }
 
         public void Do(Command.Command c)
         {

@@ -12,9 +12,10 @@ namespace PokemonPaint.View
     public static class PokemonFactory
     {
         private static int count = 0;
-        public static Pokemon Create(Pokemon.PokemonType type, Point location, Size size)
+        private static Size defaultSize = new Size(40, 40);
+        public static Pokemon Create(Pokemon.PokemonType type, Point location)
         {
-            return new Pokemon { Location = location, Size = size, Model = PokemonModelFactory.Create(type), ID = count++ };
+            return new Pokemon { Location = location, Size = defaultSize, Model = PokemonModelFactory.Create(type), ID = count++ };
         }
     }
 }
