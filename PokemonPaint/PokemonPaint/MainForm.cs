@@ -52,9 +52,11 @@ namespace PokemonPaint
                 switch (mode)
                 {
                     case Mode.Move:
-                        if(Drawing.SelectedPokemon != null)
+                        if(Drawing.SelectedPokemon == null)
+                            Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Select, Drawing.PokemonAtRectangle(LastClick)));
+                        else
                         {
-                            Pokemon selected = PokemonFactory.Create(Drawing.SelectedPokemon, isCopy:true);
+                            Pokemon selected = PokemonFactory.Copy(Drawing.SelectedPokemon);
                             selected.Location = LastClick.Location;
                             Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Move, selected));
                         }
