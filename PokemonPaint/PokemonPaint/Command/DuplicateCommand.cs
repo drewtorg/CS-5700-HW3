@@ -10,26 +10,24 @@ using PokemonPaint.View;
 
 namespace PokemonPaint.Command
 {
-    public class ShrinkCommand : Command
+    public class DuplicateCommand : Command
     {
-        public const int GROWTH_FACTOR = 5;
-
-        private Size oldSize;
+        private const int OFFSET = 10;
 
         public override void Execute(Drawing drawing)
         {
             if (pokemon != null)
             {
-                oldSize = pokemon.Size;
-                drawing.PokemonList[pokemon.ID].Size = new Size(pokemon.Size.Width - GROWTH_FACTOR,
-                                                                pokemon.Size.Height - GROWTH_FACTOR);
+                pokemon.Location = new Point(pokemon.Location.X + OFFSET,
+                                             pokemon.Location.Y + OFFSET);
+                drawing.PokemonList.Add(pokemon.ID, pokemon);
                 base.Execute(drawing);
             }
         }
 
         protected override void UndoCommand(Drawing drawing)
         {
-            drawing.PokemonList[pokemon.ID].Size = oldSize;
+            drawing.PokemonList.Remove(pokemon.ID);
         }
     }
 }

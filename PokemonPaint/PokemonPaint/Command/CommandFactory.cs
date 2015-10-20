@@ -12,7 +12,7 @@ namespace PokemonPaint.Command
 {
     public class CommandFactory
     {
-        public enum CommandType { Create, Delete, Move, Select };
+        public enum CommandType { Create, Delete, Move, Select, Grow, Shrink, Duplicate };
 
         private CommandFactory() { }
 
@@ -28,6 +28,12 @@ namespace PokemonPaint.Command
                     return new MoveCommand() { pokemon = pokemon };
                 case CommandType.Select:
                     return new SelectCommand() { pokemon = pokemon };
+                case CommandType.Shrink:
+                    return new ShrinkCommand() { pokemon = pokemon };
+                case CommandType.Grow:
+                    return new GrowCommand() { pokemon = pokemon };
+                case CommandType.Duplicate:
+                    return new DuplicateCommand() { pokemon = pokemon };
                 default:
                     return null;
             }

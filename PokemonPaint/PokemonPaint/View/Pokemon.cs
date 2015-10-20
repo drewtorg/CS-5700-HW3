@@ -18,15 +18,6 @@ namespace PokemonPaint.View
         public Point Location { get; set; }
         public Size Size { get; set; }
         public Rectangle Rectangle { get { return new Rectangle(Location, Size); } }
-
-        public Pokemon() { }
-
-        public Pokemon(Pokemon other)
-        {
-            ID = other.ID;
-            Model = other.Model;
-            Location = other.Location;
-            Size = other.Size;
-        }
+        public PokemonType Type { get; set; }
     }
 }

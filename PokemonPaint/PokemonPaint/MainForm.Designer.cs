@@ -36,6 +36,9 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToPNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.growBtn = new System.Windows.Forms.Button();
+            this.shrinkBtn = new System.Windows.Forms.Button();
+            this.moveBtn = new System.Windows.Forms.Button();
             this.eraseBtn = new System.Windows.Forms.Button();
             this.undoBtn = new System.Windows.Forms.Button();
             this.cursorBtn = new System.Windows.Forms.Button();
@@ -47,7 +50,7 @@
             this.bulbasaurBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.moveBtn = new System.Windows.Forms.Button();
+            this.duplicateBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,6 +107,36 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // growBtn
+            // 
+            this.growBtn.Image = global::PokemonPaint.Properties.Resources.expand;
+            this.growBtn.Location = new System.Drawing.Point(217, 27);
+            this.growBtn.Name = "growBtn";
+            this.growBtn.Size = new System.Drawing.Size(45, 45);
+            this.growBtn.TabIndex = 13;
+            this.growBtn.UseVisualStyleBackColor = true;
+            this.growBtn.Click += new System.EventHandler(this.growBtn_Click);
+            // 
+            // shrinkBtn
+            // 
+            this.shrinkBtn.Image = global::PokemonPaint.Properties.Resources.shrink;
+            this.shrinkBtn.Location = new System.Drawing.Point(268, 27);
+            this.shrinkBtn.Name = "shrinkBtn";
+            this.shrinkBtn.Size = new System.Drawing.Size(45, 45);
+            this.shrinkBtn.TabIndex = 12;
+            this.shrinkBtn.UseVisualStyleBackColor = true;
+            this.shrinkBtn.Click += new System.EventHandler(this.shrinkBtn_Click);
+            // 
+            // moveBtn
+            // 
+            this.moveBtn.Image = global::PokemonPaint.Properties.Resources.move;
+            this.moveBtn.Location = new System.Drawing.Point(166, 27);
+            this.moveBtn.Name = "moveBtn";
+            this.moveBtn.Size = new System.Drawing.Size(45, 45);
+            this.moveBtn.TabIndex = 11;
+            this.moveBtn.UseVisualStyleBackColor = true;
+            this.moveBtn.Click += new System.EventHandler(this.moveBtn_Click);
             // 
             // eraseBtn
             // 
@@ -213,21 +246,24 @@
             this.button2.TabIndex = 2;
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // moveBtn
+            // duplicateBtn
             // 
-            this.moveBtn.Image = global::PokemonPaint.Properties.Resources.move;
-            this.moveBtn.Location = new System.Drawing.Point(166, 27);
-            this.moveBtn.Name = "moveBtn";
-            this.moveBtn.Size = new System.Drawing.Size(45, 45);
-            this.moveBtn.TabIndex = 11;
-            this.moveBtn.UseVisualStyleBackColor = true;
-            this.moveBtn.Click += new System.EventHandler(this.moveBtn_Click);
+            this.duplicateBtn.Image = global::PokemonPaint.Properties.Resources.duplicate;
+            this.duplicateBtn.Location = new System.Drawing.Point(319, 27);
+            this.duplicateBtn.Name = "duplicateBtn";
+            this.duplicateBtn.Size = new System.Drawing.Size(45, 45);
+            this.duplicateBtn.TabIndex = 14;
+            this.duplicateBtn.UseVisualStyleBackColor = true;
+            this.duplicateBtn.Click += new System.EventHandler(this.duplicateBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 388);
+            this.Controls.Add(this.duplicateBtn);
+            this.Controls.Add(this.growBtn);
+            this.Controls.Add(this.shrinkBtn);
             this.Controls.Add(this.moveBtn);
             this.Controls.Add(this.eraseBtn);
             this.Controls.Add(this.undoBtn);
@@ -272,6 +308,9 @@
         private System.Windows.Forms.Button undoBtn;
         private System.Windows.Forms.Button eraseBtn;
         private System.Windows.Forms.Button moveBtn;
+        private System.Windows.Forms.Button shrinkBtn;
+        private System.Windows.Forms.Button growBtn;
+        private System.Windows.Forms.Button duplicateBtn;
     }
 }
 

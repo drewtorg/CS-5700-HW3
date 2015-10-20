@@ -17,7 +17,7 @@ namespace PokemonPaint
 {
     public partial class MainForm : Form
     {
-        public enum Mode { Selection, Creation, Erase, Move };
+        public enum Mode { Selection, Creation, Erase, Move, Shrink, Grow, Duplicate };
 
         public Graphics Graphics { get; set; }
         public Mode mode { get; set; }
@@ -54,7 +54,8 @@ namespace PokemonPaint
                     case Mode.Move:
                         if(Drawing.SelectedPokemon != null)
                         {
-                            Pokemon selected = new Pokemon(Drawing.SelectedPokemon) { Location = LastClick.Location };
+                            Pokemon selected = PokemonFactory.Create(Drawing.SelectedPokemon, isCopy:true);
+                            selected.Location = LastClick.Location;
                             Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Move, selected));
                         }
                         break;
@@ -66,6 +67,15 @@ namespace PokemonPaint
                         break;
                     case Mode.Selection:
                         Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Select, Drawing.PokemonAtRectangle(LastClick)));
+                        break;
+                    case Mode.Shrink:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Shrink, Drawing.PokemonAtRectangle(LastClick)));
+                        break;
+                    case Mode.Grow:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Grow, Drawing.PokemonAtRectangle(LastClick)));
+                        break;
+                    case Mode.Duplicate:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
                         break;
                 }
             }
@@ -135,6 +145,21 @@ namespace PokemonPaint
         private void moveBtn_Click(object sender, EventArgs e)
         {
             mode = Mode.Move;
+        }
+
+        private void shrinkBtn_Click(object sender, EventArgs e)
+        {
+            mode = Mode.Shrink;
+        }
+
+        private void growBtn_Click(object sender, EventArgs e)
+        {
+            mode = Mode.Grow;
+        }
+
+        private void duplicateBtn_Click(object sender, EventArgs e)
+        {
+            mode = Mode.Duplicate;
         }
     }
 }
