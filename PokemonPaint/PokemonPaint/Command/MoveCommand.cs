@@ -15,9 +15,12 @@ namespace PokemonPaint.Command
         
         public override void Execute(Drawing drawing)
         {
+            pokemon.Location = new Point(pokemon.Location.X - pokemon.Size.Width / 2,
+                                         pokemon.Location.Y - pokemon.Size.Height / 2);
+
             oldLocation = drawing.PokemonList[pokemon.ID].Location;
             drawing.PokemonList[pokemon.ID].Location = pokemon.Location;
-
+            base.Execute(drawing);
         }
 
         protected override void UndoCommand(Drawing drawing)

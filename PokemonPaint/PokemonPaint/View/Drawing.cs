@@ -26,13 +26,23 @@ namespace PokemonPaint.View
             PokemonList = new Dictionary<int, Pokemon>();
             Canvas = canvas;
             BackgroundColor = backgroundColor;
-
-            RefreshDrawing();
         }
 
         public static Drawing Create(Graphics g, Color backgroundColor)
         {
             return new Drawing(g, new Rectangle(new Point(64, 27), new Size(627, 349)), backgroundColor);
+        }
+
+        public Pokemon PokemonAtRectangle(Rectangle loc)
+        {
+            foreach (Pokemon pokemon in PokemonList.Values)
+            {
+                if (pokemon.Rectangle.IntersectsWith(loc))
+                {
+                    return pokemon;
+                }
+            }
+            return null;
         }
 
         public void RefreshDrawing()
@@ -53,11 +63,13 @@ namespace PokemonPaint.View
         public void Do(Command.Command c)
         {
             c.Execute(this);
+            RefreshDrawing();
         }
 
         public void Undo()
         {
             Command.Command.Undo(this);
+            RefreshDrawing();
         }
     }
 }

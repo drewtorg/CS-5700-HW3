@@ -17,10 +17,12 @@ namespace PokemonPaint.Command
         {
             oldPokemon = drawing.SelectedPokemon;
             if (pokemon != null)
+            {
                 drawing.SelectedPokemon = drawing.PokemonList[pokemon.ID];
+                base.Execute(drawing);
+            }
             else
-                drawing.SelectedPokemon = pokemon;
-            base.Execute(drawing);
+                drawing.SelectedPokemon = null;
         }
 
         protected override void UndoCommand(Drawing drawing)

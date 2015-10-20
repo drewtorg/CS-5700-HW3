@@ -51,8 +51,10 @@
     <Compile Include="Command\CommandFactory.cs" />
     <Compile Include="Command\CreateCommand.cs" />
     <Compile Include="Command\DeleteCommand.cs" />
+    <Compile Include="Command\GrowCommand.cs" />
     <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\SelectCommand.cs" />
+    <Compile Include="Command\ShrinkCommand.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +117,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Graphics\cursor.png" />
+    <None Include="Graphics\move.png" />
+    <None Include="Graphics\eraser.png" />
+    <None Include="Graphics\undomed.png" />
+    <None Include="Graphics\undotiny.png" />
+    <None Include="Graphics\undo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

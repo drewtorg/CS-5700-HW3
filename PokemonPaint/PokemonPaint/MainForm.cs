@@ -17,12 +17,12 @@ namespace PokemonPaint
 {
     public partial class MainForm : Form
     {
-        public enum Mode { Selection, Creation };
+        public enum Mode { Selection, Creation, Erase, Move };
 
         public Graphics Graphics { get; set; }
         public Mode mode { get; set; }
         public Pokemon.PokemonType SelectedType { get; set; }
-        public Point LastClick { get; set; }
+        public Rectangle LastClick { get; set; }
         public Drawing Drawing { get; set; }
 
         public MainForm()
@@ -46,43 +46,33 @@ namespace PokemonPaint
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            if (Drawing.Canvas.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
+            LastClick = new Rectangle(e.Location, new Size(1, 1));
+            if (Drawing.Canvas.IntersectsWith(LastClick))
             {
-                LastClick = e.Location;
                 switch (mode)
                 {
+                    case Mode.Move:
+                        if(Drawing.SelectedPokemon != null)
+                        {
+                            Pokemon selected = new Pokemon(Drawing.SelectedPokemon) { Location = LastClick.Location };
+                            Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Move, selected));
+                        }
+                        break;
+                    case Mode.Erase:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Delete, Drawing.PokemonAtRectangle(LastClick)));
+                        break;
                     case Mode.Creation:
-                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Create, PokemonFactory.Create(SelectedType, LastClick)));
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Create, PokemonFactory.Create(SelectedType, LastClick.Location)));
                         break;
                     case Mode.Selection:
-                        Pokemon selected = null;
-                        foreach (Pokemon pokemon in Drawing.PokemonList.Values)
-                        {
-                            if (pokemon.Rectangle.IntersectsWith(new Rectangle(LastClick, new Size(1, 1))))
-                            {
-                                selected = pokemon;
-                                break;
-                            }
-                        }
-                        //moving a pokemon
-                        //if (selected == null && Drawing.SelectedPokemon != null)
-                        //{
-                        //    selected = Drawing.SelectedPokemon;
-                        //    selected.Location = LastClick;
-                        //    Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Move, selected));
-                        //    break;
-                        //}
-                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Select, selected));
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Select, Drawing.PokemonAtRectangle(LastClick)));
                         break;
                 }
-
-                Drawing.RefreshDrawing();
             }
         }
 
         private void cursorBtn_Click(object sender, EventArgs e)
         {
-            SelectedType = Pokemon.PokemonType.Bulbasaur;
             mode = Mode.Selection;
         }
 
@@ -125,6 +115,26 @@ namespace PokemonPaint
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void undoButton_Click(object sender, EventArgs e)
+        {
+            Drawing.Undo();
+        }
+
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            //Drawing.RefreshDrawing();
+        }
+
+        private void eraseButton_Click(object sender, EventArgs e)
+        {
+            mode = Mode.Erase;
+        }
+
+        private void moveBtn_Click(object sender, EventArgs e)
+        {
+            mode = Mode.Move;
         }
     }
 }

@@ -12,7 +12,11 @@ namespace PokemonPaint.Command
     {
         public override void Execute(Drawing drawing)
         {
-            drawing.PokemonList.Remove(pokemon.ID);
+            if (pokemon != null)
+            {
+                drawing.PokemonList.Remove(pokemon.ID);
+                base.Execute(drawing);
+            }
         }
 
         protected override void UndoCommand(Drawing drawing)
