@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 using PokemonPaint.Command;
 
@@ -30,7 +31,7 @@ namespace PokemonPaint.View
 
         public static Drawing Create(Graphics g, Color backgroundColor)
         {
-            return new Drawing(g, new Rectangle(new Point(64, 27), new Size(627, 349)), backgroundColor);
+            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), backgroundColor);
         }
 
         public Pokemon PokemonAtRectangle(Rectangle loc)
@@ -57,6 +58,21 @@ namespace PokemonPaint.View
             {
                 graphics.DrawRectangle(Pens.Black, SelectedPokemon.Rectangle);
                 graphics.DrawImage(SelectedPokemon.Model.Image, SelectedPokemon.Rectangle);
+            }
+        }
+
+        public void ExportImage(Point desktopLocation, string filename)
+        {
+            using (Bitmap bitmap = new Bitmap(Canvas.Width, Canvas.Height))
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    Point loc = new Point(desktopLocation.X + Canvas.X + 1, desktopLocation.Y + Canvas.Y + 24);
+                    Size size = new Size(Canvas.Width - 1, Canvas.Height - 32);
+                    g.CopyFromScreen(loc, new Point(0, 0), size);
+                }
+
+                bitmap.Save(filename, ImageFormat.Png);
             }
         }
 

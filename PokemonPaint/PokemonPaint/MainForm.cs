@@ -29,7 +29,8 @@ namespace PokemonPaint
         {
             InitializeComponent();
             Graphics = CreateGraphics();
-            Drawing = Drawing.Create(Graphics, Color.GhostWhite);
+            Drawing = Drawing.Create(Graphics, BackColor);
+            Drawing.RefreshDrawing();
             mode = Mode.Selection;
             SelectedType = Pokemon.PokemonType.Bulbasaur;
         }
@@ -41,6 +42,7 @@ namespace PokemonPaint
             if(newDialog.ShowDialog() == DialogResult.OK)
             {
                 Drawing = Drawing.Create(Graphics, newDialog.Color);
+                Drawing.RefreshDrawing();
             }
         }
 
@@ -162,6 +164,16 @@ namespace PokemonPaint
         private void duplicateBtn_Click(object sender, EventArgs e)
         {
             mode = Mode.Duplicate;
+        }
+
+        private void exportToPNGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Drawing.SelectedPokemon = null;
+            Drawing.RefreshDrawing();
+            if (exportFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Drawing.ExportImage(DesktopLocation, exportFileDialog.FileName);
+            }
         }
     }
 }

@@ -51,6 +51,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.duplicateBtn = new System.Windows.Forms.Button();
+            this.exportFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,32 +80,33 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // exportToPNGToolStripMenuItem
             // 
             this.exportToPNGToolStripMenuItem.Name = "exportToPNGToolStripMenuItem";
-            this.exportToPNGToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.exportToPNGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToPNGToolStripMenuItem.Text = "Export To PNG";
+            this.exportToPNGToolStripMenuItem.Click += new System.EventHandler(this.exportToPNGToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -256,6 +258,11 @@
             this.duplicateBtn.UseVisualStyleBackColor = true;
             this.duplicateBtn.Click += new System.EventHandler(this.duplicateBtn_Click);
             // 
+            // exportFileDialog
+            // 
+            this.exportFileDialog.DefaultExt = "png";
+            this.exportFileDialog.Filter = "PNG files|*.png";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,6 +318,7 @@
         private System.Windows.Forms.Button shrinkBtn;
         private System.Windows.Forms.Button growBtn;
         private System.Windows.Forms.Button duplicateBtn;
+        private System.Windows.Forms.SaveFileDialog exportFileDialog;
     }
 }
 
