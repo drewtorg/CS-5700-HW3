@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
 
 using PokemonPaint.Command;
 
@@ -87,12 +88,13 @@ namespace PokemonPaint.View
 
         public void ExportImage(Point desktopLocation, string filename)
         {
-            using (Bitmap bitmap = new Bitmap(Canvas.Width, Canvas.Height))
+            using (Bitmap bitmap = new Bitmap(Canvas.Width - 8, Canvas.Height - 40))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
-                    Point loc = new Point(desktopLocation.X + Canvas.X + 1, desktopLocation.Y + Canvas.Y + 24);
-                    Size size = new Size(Canvas.Width - 1, Canvas.Height - 32);
+                    Point loc = new Point(desktopLocation.X + Canvas.X + 8, desktopLocation.Y + Canvas.Y + 32);
+                    Size size = new Size(Canvas.Width - 8, Canvas.Height - 40);
+                    Thread.Sleep(100);
                     g.CopyFromScreen(loc, new Point(0, 0), size);
                 }
 
