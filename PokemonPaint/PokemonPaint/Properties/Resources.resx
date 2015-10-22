@@ -133,6 +133,9 @@
   <data name="duplicate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\duplicate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="emptyPallet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\emptyPallet.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="eraser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\eraser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -141,6 +144,12 @@
   </data>
   <data name="move" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\move.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oakLab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\oakLab.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="palletTown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Graphics\palletTown.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pikachu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\pikachu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

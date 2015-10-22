@@ -113,6 +113,16 @@ namespace PokemonPaint.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap emptyPallet {
+            get {
+                object obj = ResourceManager.GetObject("emptyPallet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap eraser {
             get {
                 object obj = ResourceManager.GetObject("eraser", resourceCulture);
@@ -136,6 +146,26 @@ namespace PokemonPaint.Properties {
         internal static System.Drawing.Bitmap move {
             get {
                 object obj = ResourceManager.GetObject("move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap oakLab {
+            get {
+                object obj = ResourceManager.GetObject("oakLab", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap palletTown {
+            get {
+                object obj = ResourceManager.GetObject("palletTown", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

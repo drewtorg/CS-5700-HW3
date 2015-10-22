@@ -32,6 +32,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToPNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +54,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.duplicateBtn = new System.Windows.Forms.Button();
             this.exportFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.imageComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,10 +82,27 @@
             // 
             // newToolStripMenuItem
             // 
+            this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imageToolStripMenuItem,
+            this.colorToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imageComboBox});
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem.Text = "Image";
+            // 
+            // colorToolStripMenuItem
+            // 
+            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colorToolStripMenuItem.Text = "Color";
+            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -263,6 +283,17 @@
             this.exportFileDialog.DefaultExt = "png";
             this.exportFileDialog.Filter = "PNG files|*.png";
             // 
+            // imageComboBox
+            // 
+            this.imageComboBox.Items.AddRange(new object[] {
+            "Pallet Town",
+            "Pallet Empty",
+            "Oak\'s Lab"});
+            this.imageComboBox.Name = "imageComboBox";
+            this.imageComboBox.Size = new System.Drawing.Size(121, 23);
+            this.imageComboBox.Text = "Choose one";
+            this.imageComboBox.SelectedIndexChanged += new System.EventHandler(this.imageComboBox_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,11 +313,15 @@
             this.Controls.Add(this.charmanderBtn);
             this.Controls.Add(this.bulbasaurBtn);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pokemon Paint";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -319,6 +354,9 @@
         private System.Windows.Forms.Button growBtn;
         private System.Windows.Forms.Button duplicateBtn;
         private System.Windows.Forms.SaveFileDialog exportFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox imageComboBox;
     }
 }
 

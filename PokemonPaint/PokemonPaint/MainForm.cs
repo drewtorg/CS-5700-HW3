@@ -35,17 +35,6 @@ namespace PokemonPaint
             SelectedType = Pokemon.PokemonType.Bulbasaur;
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewDrawingForm newDialog = new NewDrawingForm();
-
-            if(newDialog.ShowDialog() == DialogResult.OK)
-            {
-                Drawing = Drawing.Create(Graphics, newDialog.Color);
-                Drawing.RefreshDrawing();
-            }
-        }
-
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             LastClick = new Rectangle(e.Location, new Size(1, 1));
@@ -174,6 +163,45 @@ namespace PokemonPaint
             {
                 Drawing.ExportImage(DesktopLocation, exportFileDialog.FileName);
             }
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+                Drawing.RefreshDrawing();
+        }
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewDrawingForm newDialog = new NewDrawingForm();
+
+            if (newDialog.ShowDialog() == DialogResult.OK)
+            {
+                Drawing = Drawing.Create(Graphics, newDialog.Color);
+                Drawing.RefreshDrawing();
+            }
+        }
+
+        private void imageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Image backImage;
+            switch (imageComboBox.SelectedIndex)
+            {
+                case 0:
+                    backImage = Resources.palletTown;
+                    break;
+                case 1:
+                    backImage = Resources.emptyPallet;
+                    break;
+                case 2:
+                    backImage = Resources.oakLab;
+                    break;
+                default:
+                    backImage = Resources.palletTown;
+                    break;
+            }
+            Drawing = Drawing.Create(Graphics, backImage);
+            Drawing.RefreshDrawing();
         }
     }
 }

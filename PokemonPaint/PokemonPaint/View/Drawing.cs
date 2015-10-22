@@ -21,17 +21,23 @@ namespace PokemonPaint.View
         
         private Graphics graphics;
 
-        private Drawing(Graphics g, Rectangle canvas, Color backgroundColor)
+        private Drawing(Graphics g, Rectangle canvas, Color backgroundColor, Image backgroundImage = null)
         {
             graphics = g;
             PokemonList = new Dictionary<int, Pokemon>();
             Canvas = canvas;
             BackgroundColor = backgroundColor;
+            BackgroundImage = backgroundImage;
         }
 
         public static Drawing Create(Graphics g, Color backgroundColor)
         {
             return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), backgroundColor);
+        }
+
+        public static Drawing Create(Graphics g, Image backgroundImage)
+        {
+            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), Color.White, backgroundImage);
         }
 
         public Pokemon PokemonAtRectangle(Rectangle loc)
@@ -48,17 +54,34 @@ namespace PokemonPaint.View
 
         public void RefreshDrawing()
         {
-            graphics.FillRectangle(new SolidBrush(BackgroundColor), Canvas);
-            foreach (Pokemon pokemon in PokemonList.Values)
-            {
-                graphics.DrawImage(pokemon.Model.Image, pokemon.Rectangle);
-            }
+            RefreshBackground();
+            RefreshAllPokemon();
+            RefreshSelectedPokemon();
+        }
 
+        private void RefreshSelectedPokemon()
+        {
             if (SelectedPokemon != null)
             {
                 graphics.DrawRectangle(Pens.Black, SelectedPokemon.Rectangle);
                 graphics.DrawImage(SelectedPokemon.Model.Image, SelectedPokemon.Rectangle);
             }
+        }
+
+        private void RefreshAllPokemon()
+        {
+            foreach (Pokemon pokemon in PokemonList.Values)
+            {
+                graphics.DrawImage(pokemon.Model.Image, pokemon.Rectangle);
+            }
+        }
+
+        private void RefreshBackground()
+        {
+            if (BackgroundImage == null)
+                graphics.FillRectangle(new SolidBrush(BackgroundColor), Canvas);
+            else
+                graphics.DrawImage(BackgroundImage, Canvas);
         }
 
         public void ExportImage(Point desktopLocation, string filename)
