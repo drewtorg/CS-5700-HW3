@@ -12,7 +12,7 @@ namespace PokemonPaint.Command
 {
     public class DuplicateCommand : Command
     {
-        private const int OFFSET = 10;
+        public const int OFFSET = 10;
 
         public override void Execute(Drawing drawing)
         {

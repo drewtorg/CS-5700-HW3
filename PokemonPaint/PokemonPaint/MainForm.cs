@@ -67,9 +67,6 @@ namespace PokemonPaint
                     case Mode.Grow:
                         Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Grow, Drawing.PokemonAtRectangle(LastClick)));
                         break;
-                    case Mode.Duplicate:
-                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
-                        break;
                 }
             }
         }
@@ -152,7 +149,7 @@ namespace PokemonPaint
 
         private void duplicateBtn_Click(object sender, EventArgs e)
         {
-            mode = Mode.Duplicate;
+            Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
         }
 
         private void exportToPNGToolStripMenuItem_Click(object sender, EventArgs e)

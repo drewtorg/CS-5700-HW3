@@ -10,7 +10,7 @@ namespace PokemonPaint.Command
 {
     public abstract class Command
     {
-        protected static Stack<Command> history = new Stack<Command>();
+        public static Stack<Command> history = new Stack<Command>();
         public Pokemon pokemon;
 
         public virtual void Execute(Drawing drawing)

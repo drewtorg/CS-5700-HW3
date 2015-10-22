@@ -28,6 +28,7 @@ namespace PokemonPaint.View
             Canvas = canvas;
             BackgroundColor = backgroundColor;
             BackgroundImage = backgroundImage;
+            Command.Command.history.Clear();
         }
 
         public static Drawing Create(Graphics g, Color backgroundColor)
