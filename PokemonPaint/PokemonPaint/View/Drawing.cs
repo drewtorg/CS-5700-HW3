@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 
-using PokemonPaint.Command;
+using PokemonPaint.Commands;
 
 namespace PokemonPaint.View
 {
@@ -29,7 +29,7 @@ namespace PokemonPaint.View
             Canvas = canvas;
             BackgroundColor = backgroundColor;
             BackgroundImage = backgroundImage;
-            Command.Command.history.Clear();
+            Command.history.Clear();
         }
 
         public static Drawing Create(Graphics g, Color backgroundColor)
@@ -102,7 +102,7 @@ namespace PokemonPaint.View
             }
         }
 
-        public void Do(Command.Command c)
+        public void Do(Command c)
         {
             c.Execute(this);
             RefreshDrawing();
@@ -110,7 +110,7 @@ namespace PokemonPaint.View
 
         public void Undo()
         {
-            Command.Command.Undo(this);
+            Command.Undo(this);
             RefreshDrawing();
         }
     }

@@ -8,9 +8,9 @@ using System.Drawing;
 
 using PokemonPaint.View;
 
-namespace PokemonPaint.Command
+namespace PokemonPaint.Commands
 {
-    public class ShrinkCommand : Command
+    public class GrowCommand : Command
     {
         public const int GROWTH_FACTOR = 5;
 
@@ -21,8 +21,8 @@ namespace PokemonPaint.Command
             if (pokemon != null)
             {
                 oldSize = pokemon.Size;
-                drawing.PokemonList[pokemon.ID].Size = new Size(pokemon.Size.Width - GROWTH_FACTOR,
-                                                                pokemon.Size.Height - GROWTH_FACTOR);
+                drawing.PokemonList[pokemon.ID].Size = new Size(pokemon.Size.Width + GROWTH_FACTOR,
+                                                                pokemon.Size.Height + GROWTH_FACTOR);
                 base.Execute(drawing);
             }
         }

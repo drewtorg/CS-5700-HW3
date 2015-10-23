@@ -20,12 +20,16 @@ namespace PokemonPaint.View
 
         public static Pokemon Create(Pokemon other)
         {
+            if (other == null)
+                return null;
             return new Pokemon { Location = other.Location, Size = other.Size, Model = other.Model, ID = count++, Type = other.Type };
         }
 
         public static Pokemon Copy(Pokemon other)
         {
-             return new Pokemon { Location = other.Location, Size = other.Size, Model = other.Model, ID = other.ID, Type = other.Type };
+            if (other == null)
+                return null;
+            return new Pokemon { Location = other.Location, Size = other.Size, Model = other.Model, ID = other.ID, Type = other.Type };
         }
     }
 }

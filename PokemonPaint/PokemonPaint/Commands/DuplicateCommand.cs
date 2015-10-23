@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Drawing;
 
 using PokemonPaint.View;
 
-namespace PokemonPaint.Command
+namespace PokemonPaint.Commands
 {
-    public class SelectCommand : Command
+    public class DuplicateCommand : Command
     {
-        Pokemon oldPokemon = null;
+        public const int OFFSET = 20;
 
         public override void Execute(Drawing drawing)
         {
-            oldPokemon = drawing.SelectedPokemon;
             if (pokemon != null)
             {
-                drawing.SelectedPokemon = drawing.PokemonList[pokemon.ID];
+                pokemon.Location = new Point(pokemon.Location.X + OFFSET,
+                                             pokemon.Location.Y + OFFSET);
+                drawing.PokemonList.Add(pokemon.ID, pokemon);
                 base.Execute(drawing);
             }
-            else
-                drawing.SelectedPokemon = null;
         }
 
         protected override void UndoCommand(Drawing drawing)
         {
-            drawing.SelectedPokemon = oldPokemon;
+            drawing.PokemonList.Remove(pokemon.ID);
         }
     }
 }

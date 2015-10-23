@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using PokemonPaint.Properties;
 
 using PokemonPaint.View;
-using PokemonPaint.Command;
-using PokemonPaint.Model;
+using PokemonPaint.Commands;
 
 namespace PokemonPaint
 {
@@ -19,11 +18,21 @@ namespace PokemonPaint
     {
         public enum Mode { Selection, Creation, Erase, Move, Shrink, Grow, Duplicate };
 
+        private Pokemon.PokemonType selectedType;
+
         public Graphics Graphics { get; set; }
-        public Mode mode { get; set; }
-        public Pokemon.PokemonType SelectedType { get; set; }
+        public Mode CurrentMode { get; set; }
         public Rectangle LastClick { get; set; }
         public Drawing Drawing { get; set; }
+        public Pokemon.PokemonType SelectedType
+        {
+            get { return selectedType; }
+            set
+            {
+                selectedType = value;
+                CurrentMode = Mode.Creation;
+            }
+        }
 
         public MainForm()
         {
@@ -31,8 +40,18 @@ namespace PokemonPaint
             Graphics = CreateGraphics();
             Drawing = Drawing.Create(Graphics, BackColor);
             Drawing.RefreshDrawing();
-            mode = Mode.Selection;
-            SelectedType = Pokemon.PokemonType.Bulbasaur;
+            AddToolTips();
+        }
+
+        private void AddToolTips()
+        {
+            toolTip.SetToolTip(growBtn, "Click here or press Ctrl + G then click on a pokemon to make it grow");
+            toolTip.SetToolTip(shrinkBtn, "Click here or press Ctrl + F then click on a pokemon to make it shrink");
+            toolTip.SetToolTip(eraseBtn, "Click here or press Ctrl + E then click on a pokemon to erase it");
+            toolTip.SetToolTip(cursorBtn, "Click here or press Ctrl + W then click on a pokemon to select it");
+            toolTip.SetToolTip(undoBtn, "Click here or press Ctrl + Z to undo past actions");
+            toolTip.SetToolTip(duplicateBtn, "Click here or press Ctrl + D then click on a pokemon to duplicate it");
+            toolTip.SetToolTip(moveBtn, "Click here or press Ctrl + X then click on a pokemon to select it\nOnce selected, click somewhere else to move the pokemon to that new location");
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
@@ -40,7 +59,7 @@ namespace PokemonPaint
             LastClick = new Rectangle(e.Location, new Size(1, 1));
             if (Drawing.Canvas.IntersectsWith(LastClick))
             {
-                switch (mode)
+                switch (CurrentMode)
                 {
                     case Mode.Move:
                         if(Drawing.SelectedPokemon == null)
@@ -67,49 +86,46 @@ namespace PokemonPaint
                     case Mode.Grow:
                         Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Grow, Drawing.PokemonAtRectangle(LastClick)));
                         break;
+                    case Mode.Duplicate:
+                        Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
+                        break;
                 }
             }
         }
 
         private void cursorBtn_Click(object sender, EventArgs e)
         {
-            mode = Mode.Selection;
+            CurrentMode = Mode.Selection;
         }
 
         private void bulbasaurBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Bulbasaur;
-            mode = Mode.Creation;
         }
 
         private void charmanderBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Charmander;
-            mode = Mode.Creation;
         }
 
         private void squirtleBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Squirtle;
-            mode = Mode.Creation;
         }
 
         private void pikachuBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Pikachu;
-            mode = Mode.Creation;
         }
 
         private void slowpokeBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Slowpoke;
-            mode = Mode.Creation;
         }
 
         private void diglettBtn_Click(object sender, EventArgs e)
         {
             SelectedType = Pokemon.PokemonType.Diglett;
-            mode = Mode.Creation;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,27 +145,27 @@ namespace PokemonPaint
 
         private void eraseButton_Click(object sender, EventArgs e)
         {
-            mode = Mode.Erase;
+            CurrentMode = Mode.Erase;
         }
 
         private void moveBtn_Click(object sender, EventArgs e)
         {
-            mode = Mode.Move;
+            CurrentMode = Mode.Move;
         }
 
         private void shrinkBtn_Click(object sender, EventArgs e)
         {
-            mode = Mode.Shrink;
+            CurrentMode = Mode.Shrink;
         }
 
         private void growBtn_Click(object sender, EventArgs e)
         {
-            mode = Mode.Grow;
+            CurrentMode = Mode.Grow;
         }
 
         private void duplicateBtn_Click(object sender, EventArgs e)
         {
-            Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
+            CurrentMode = Mode.Duplicate;
         }
 
         private void exportToPNGToolStripMenuItem_Click(object sender, EventArgs e)
@@ -159,6 +175,7 @@ namespace PokemonPaint
             if (exportFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Drawing.ExportImage(DesktopLocation, exportFileDialog.FileName);
+                MessageBox.Show("Saved " + exportFileDialog.FileName);
             }
         }
 
@@ -199,6 +216,63 @@ namespace PokemonPaint
             }
             Drawing = Drawing.Create(Graphics, backImage);
             Drawing.RefreshDrawing();
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                switch(e.KeyCode)
+                {
+                    case Keys.G:
+                        CurrentMode = Mode.Grow;
+                        break;
+                    case Keys.F:
+                        CurrentMode = Mode.Shrink;
+                        break;
+                    case Keys.E:
+                        CurrentMode = Mode.Erase;
+                        break;
+                    case Keys.W:
+                        CurrentMode = Mode.Selection;
+                        break;
+                    case Keys.D:
+                        CurrentMode = Mode.Duplicate;
+                        break;
+                    case Keys.X:
+                        CurrentMode = Mode.Move;
+                        break;
+                    case Keys.N:
+                        CurrentMode = Mode.Move;
+                        break;
+                    case Keys.Z:
+                        Command.Undo(Drawing);
+                        Drawing.RefreshDrawing();
+                        break;
+
+                }
+            }
+            switch (e.KeyCode)
+            {
+                case Keys.B:
+                    SelectedType = Pokemon.PokemonType.Bulbasaur;
+                    break;
+                case Keys.S:
+                    SelectedType = Pokemon.PokemonType.Squirtle;
+                    break;
+                case Keys.C:
+                    SelectedType = Pokemon.PokemonType.Charmander;
+                    break;
+                case Keys.P:
+                    SelectedType = Pokemon.PokemonType.Pikachu;
+                    break;
+                case Keys.L:
+                    SelectedType = Pokemon.PokemonType.Slowpoke;
+                    break;
+                case Keys.D:
+                    SelectedType = Pokemon.PokemonType.Diglett;
+                    break;
+            }
         }
     }
 }

@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.ToolTip toolTip;
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +57,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.duplicateBtn = new System.Windows.Forms.Button();
             this.exportFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.imageComboBox = new System.Windows.Forms.ToolStripComboBox();
+            toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +89,7 @@
             this.imageToolStripMenuItem,
             this.colorToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // imageToolStripMenuItem
@@ -94,40 +97,51 @@
             this.imageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imageComboBox});
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.imageToolStripMenuItem.Text = "Image";
+            // 
+            // imageComboBox
+            // 
+            this.imageComboBox.Items.AddRange(new object[] {
+            "Pallet Town",
+            "Pallet Empty",
+            "Oak\'s Lab"});
+            this.imageComboBox.Name = "imageComboBox";
+            this.imageComboBox.Size = new System.Drawing.Size(121, 23);
+            this.imageComboBox.Text = "Choose one";
+            this.imageComboBox.SelectedIndexChanged += new System.EventHandler(this.imageComboBox_SelectedIndexChanged);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.colorToolStripMenuItem.Text = "Color";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.colorToolStripMenuItem.Text = "Color    Ctrl + N";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.saveToolStripMenuItem.Text = "Save         Ctrl + S";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.loadToolStripMenuItem.Text = "Load        Ctrl + L";
             // 
             // exportToPNGToolStripMenuItem
             // 
             this.exportToPNGToolStripMenuItem.Name = "exportToPNGToolStripMenuItem";
-            this.exportToPNGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exportToPNGToolStripMenuItem.Text = "Export To PNG";
+            this.exportToPNGToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.exportToPNGToolStripMenuItem.Text = "Export      Ctrl + E";
             this.exportToPNGToolStripMenuItem.Click += new System.EventHandler(this.exportToPNGToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.exitToolStripMenuItem.Text = "Exit           Ctrl + Q";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // growBtn
@@ -283,17 +297,6 @@
             this.exportFileDialog.DefaultExt = "png";
             this.exportFileDialog.Filter = "PNG files|*.png";
             // 
-            // imageComboBox
-            // 
-            this.imageComboBox.Items.AddRange(new object[] {
-            "Pallet Town",
-            "Pallet Empty",
-            "Oak\'s Lab"});
-            this.imageComboBox.Name = "imageComboBox";
-            this.imageComboBox.Size = new System.Drawing.Size(121, 23);
-            this.imageComboBox.Text = "Choose one";
-            this.imageComboBox.SelectedIndexChanged += new System.EventHandler(this.imageComboBox_SelectedIndexChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,12 +317,14 @@
             this.Controls.Add(this.bulbasaurBtn);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pokemon Paint";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip1.ResumeLayout(false);

@@ -8,7 +8,7 @@ using System.Drawing;
 
 using PokemonPaint.View;
 
-namespace PokemonPaint.Command
+namespace PokemonPaint.Commands
 {
     public class CommandFactory
     {

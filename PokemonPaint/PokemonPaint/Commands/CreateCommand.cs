@@ -7,25 +7,22 @@ using System.Drawing;
 
 using PokemonPaint.View;
 
-namespace PokemonPaint.Command
+namespace PokemonPaint.Commands
 {
-    public class MoveCommand : Command
+    public class CreateCommand : Command
     {
-        private Point oldLocation;
-        
         public override void Execute(Drawing drawing)
         {
+
             pokemon.Location = new Point(pokemon.Location.X - pokemon.Size.Width / 2,
                                          pokemon.Location.Y - pokemon.Size.Height / 2);
-
-            oldLocation = drawing.PokemonList[pokemon.ID].Location;
-            drawing.PokemonList[pokemon.ID].Location = pokemon.Location;
+            drawing.PokemonList.Add(pokemon.ID, pokemon);
             base.Execute(drawing);
         }
 
         protected override void UndoCommand(Drawing drawing)
         {
-            drawing.PokemonList[pokemon.ID].Location = oldLocation;
+            drawing.PokemonList.Remove(pokemon.ID);
         }
     }
 }
