@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using PokemonPaint.View;
 
-namespace PokemonPaint.Command
+namespace PokemonPaint.Commands
 {
     public abstract class Command
     {

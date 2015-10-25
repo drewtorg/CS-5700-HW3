@@ -45,6 +45,7 @@ namespace PokemonPaint
 
         private void AddToolTips()
         {
+            toolTip = new ToolTip();
             toolTip.SetToolTip(growBtn, "Click here or press Ctrl + G then click on a pokemon to make it grow");
             toolTip.SetToolTip(shrinkBtn, "Click here or press Ctrl + F then click on a pokemon to make it shrink");
             toolTip.SetToolTip(eraseBtn, "Click here or press Ctrl + E then click on a pokemon to erase it");
@@ -273,6 +274,11 @@ namespace PokemonPaint
                     SelectedType = Pokemon.PokemonType.Diglett;
                     break;
             }
+        }
+
+        private void toolTip_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }

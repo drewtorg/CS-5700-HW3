@@ -297,6 +297,10 @@
             this.exportFileDialog.DefaultExt = "png";
             this.exportFileDialog.Filter = "PNG files|*.png";
             // 
+            // toolTip
+            // 
+            toolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip_Popup);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +366,7 @@
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox imageComboBox;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 
