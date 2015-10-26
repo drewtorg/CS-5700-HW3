@@ -16,19 +16,23 @@ namespace PokemonPaint.View
     {
         public Dictionary<int, Pokemon> PokemonList { get; set; }
         public Pokemon SelectedPokemon { get; set; }
-        public Image BackgroundImage { get; set; }
+        public Image BackgroundImage { private get; set; }
+        public string ImageName { get; set; }
         public Color BackgroundColor { get; set; }
         public Rectangle Canvas { get; set; }
         
         private Graphics graphics;
 
-        private Drawing(Graphics g, Rectangle canvas, Color backgroundColor, Image backgroundImage = null)
+        public Drawing() { }
+
+        private Drawing(Graphics g, Rectangle canvas, Color backgroundColor, Image backgroundImage = null, string imageName = null)
         {
             graphics = g;
             PokemonList = new Dictionary<int, Pokemon>();
             Canvas = canvas;
             BackgroundColor = backgroundColor;
             BackgroundImage = backgroundImage;
+            ImageName = imageName;
             Command.history.Clear();
         }
 
@@ -37,9 +41,14 @@ namespace PokemonPaint.View
             return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), backgroundColor);
         }
 
-        public static Drawing Create(Graphics g, Image backgroundImage)
+        public static Drawing Create(Graphics g, Image backgroundImage, string imageName)
         {
-            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), Color.White, backgroundImage);
+            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), Color.White, backgroundImage, imageName);
+        }
+
+        public void SetGraphics(Graphics g)
+        {
+            graphics = g;
         }
 
         public Pokemon PokemonAtRectangle(Rectangle loc)

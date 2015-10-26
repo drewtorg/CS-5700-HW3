@@ -19,6 +19,7 @@ namespace PokemonPaint
         public enum Mode { Selection, Creation, Erase, Move, Shrink, Grow, Duplicate };
 
         private Pokemon.PokemonType selectedType;
+        private ToolTip toolTip;
 
         public Graphics Graphics { get; set; }
         public Mode CurrentMode { get; set; }
@@ -139,11 +140,6 @@ namespace PokemonPaint
             Drawing.Undo();
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            //Drawing.RefreshDrawing();
-        }
-
         private void eraseButton_Click(object sender, EventArgs e)
         {
             CurrentMode = Mode.Erase;
@@ -188,6 +184,11 @@ namespace PokemonPaint
 
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            NewDrawing();
+        }
+
+        private void NewDrawing()
+        {
             NewDrawingForm newDialog = new NewDrawingForm();
 
             if (newDialog.ShowDialog() == DialogResult.OK)
@@ -199,23 +200,9 @@ namespace PokemonPaint
 
         private void imageComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Image backImage;
-            switch (imageComboBox.SelectedIndex)
-            {
-                case 0:
-                    backImage = Resources.palletTown;
-                    break;
-                case 1:
-                    backImage = Resources.emptyPallet;
-                    break;
-                case 2:
-                    backImage = Resources.oakLab;
-                    break;
-                default:
-                    backImage = Resources.palletTown;
-                    break;
-            }
-            Drawing = Drawing.Create(Graphics, backImage);
+            string imageName = imageComboBox.SelectedItem as string;
+            Image backImage = GetImage(imageName);
+            Drawing = Drawing.Create(Graphics, backImage, imageName);
             Drawing.RefreshDrawing();
         }
 
@@ -244,11 +231,20 @@ namespace PokemonPaint
                         CurrentMode = Mode.Move;
                         break;
                     case Keys.N:
-                        CurrentMode = Mode.Move;
+                        NewDrawing();
                         break;
                     case Keys.Z:
                         Command.Undo(Drawing);
                         Drawing.RefreshDrawing();
+                        break;
+                    case Keys.Q:
+                        Close();
+                        break;
+                    case Keys.L:
+                        LoadDrawing();
+                        break;
+                    case Keys.S:
+                        SaveDrawing();
                         break;
 
                 }
@@ -276,9 +272,56 @@ namespace PokemonPaint
             }
         }
 
-        private void toolTip_Popup(object sender, PopupEventArgs e)
+        private void SaveDrawing()
         {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = saveFileDialog.FileName;
+                LoaderSaver.WriteToJsonFile<Drawing>(filename, Drawing);
+                MessageBox.Show("Saved " + saveFileDialog.FileName);
+            }
+        }
 
+        private void LoadDrawing()
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog.FileName;
+                Drawing = LoaderSaver.ReadFromJsonFile<Drawing>(filename);
+                Drawing.SetGraphics(Graphics);
+                int maxKey = Drawing.PokemonList.Max(pokemon => pokemon.Key);
+                PokemonFactory.OverrideCount(maxKey + 1);
+
+                if(Drawing.ImageName != null)
+                    Drawing.BackgroundImage = GetImage(Drawing.ImageName);
+                MessageBox.Show("Loaded " + openFileDialog.FileName);
+                Drawing.RefreshDrawing();
+            }
+        }
+
+        private Image GetImage(string imageName)
+        {
+            switch (imageName)
+            {
+                case "palletTown":
+                    return Resources.palletTown;
+                case "emptyPallet":
+                    return Resources.emptyPallet;
+                case "oakLab":
+                    return Resources.oakLab;
+                default:
+                    return Resources.palletTown;
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveDrawing();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadDrawing();
         }
     }
 }

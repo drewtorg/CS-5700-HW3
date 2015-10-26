@@ -31,5 +31,11 @@ namespace PokemonPaint.View
                 return null;
             return new Pokemon { Location = other.Location, Size = other.Size, Model = other.Model, ID = other.ID, Type = other.Type };
         }
+
+        public static void OverrideCount(int count)
+        {
+            PokemonFactory.count = count;
+        }
+
     }
 }

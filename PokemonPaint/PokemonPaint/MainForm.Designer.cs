@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.ToolTip toolTip;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +57,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.duplicateBtn = new System.Windows.Forms.Button();
             this.exportFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,12 +125,14 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.saveToolStripMenuItem.Text = "Save         Ctrl + S";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.loadToolStripMenuItem.Text = "Load        Ctrl + L";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exportToPNGToolStripMenuItem
             // 
@@ -297,9 +301,15 @@
             this.exportFileDialog.DefaultExt = "png";
             this.exportFileDialog.Filter = "PNG files|*.png";
             // 
-            // toolTip
+            // openFileDialog
             // 
-            toolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip_Popup);
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "PNT Files|*.pnt";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "pnt";
+            this.saveFileDialog.Filter = "PNT Files|*.pnt";
             // 
             // MainForm
             // 
@@ -327,7 +337,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pokemon Paint";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
@@ -366,7 +375,8 @@
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox imageComboBox;
-        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 
