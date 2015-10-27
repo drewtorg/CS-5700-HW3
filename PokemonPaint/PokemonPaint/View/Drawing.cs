@@ -23,6 +23,12 @@ namespace PokemonPaint.View
         
         private Graphics graphics;
 
+        public const int canvasX = 64;
+        public const int canvasY = 78;
+
+        public const int canvasWidth = 627;
+        public const int canvasHeight = 349;
+
         public Drawing() { }
 
         private Drawing(Graphics g, Rectangle canvas, Color backgroundColor, Image backgroundImage = null, string imageName = null)
@@ -38,12 +44,12 @@ namespace PokemonPaint.View
 
         public static Drawing Create(Graphics g, Color backgroundColor)
         {
-            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), backgroundColor);
+            return new Drawing(g, new Rectangle(new Point(canvasX, canvasY), new Size(canvasWidth, canvasHeight)), backgroundColor);
         }
 
         public static Drawing Create(Graphics g, Image backgroundImage, string imageName)
         {
-            return new Drawing(g, new Rectangle(new Point(64, 78), new Size(627, 349)), Color.White, backgroundImage, imageName);
+            return new Drawing(g, new Rectangle(new Point(canvasX, canvasY), new Size(canvasWidth, canvasHeight)), Color.White, backgroundImage, imageName);
         }
 
         public void SetGraphics(Graphics g)
@@ -114,13 +120,11 @@ namespace PokemonPaint.View
         public void Do(Command c)
         {
             c.Execute(this);
-            RefreshDrawing();
         }
 
         public void Undo()
         {
             Command.Undo(this);
-            RefreshDrawing();
         }
     }
 }

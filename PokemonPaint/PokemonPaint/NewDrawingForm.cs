@@ -17,8 +17,9 @@ namespace PokemonPaint
         public NewDrawingForm()
         {
             InitializeComponent();
-            Color = Color.AntiqueWhite;
+            Color = Color.Azure;
             colorPanel.BackColor = Color;
+            Text = "New Image";
         }
 
         private void colorButton_Click(object sender, EventArgs e)

@@ -13,11 +13,13 @@ namespace PokemonPaint.Commands
     {
         public override void Execute(Drawing drawing)
         {
-
-            pokemon.Location = new Point(pokemon.Location.X - pokemon.Size.Width / 2,
-                                         pokemon.Location.Y - pokemon.Size.Height / 2);
-            drawing.PokemonList.Add(pokemon.ID, pokemon);
-            base.Execute(drawing);
+            if (pokemon != null)
+            {
+                pokemon.Location = new Point(pokemon.Location.X - pokemon.Size.Width / 2,
+                                             pokemon.Location.Y - pokemon.Size.Height / 2);
+                drawing.PokemonList.Add(pokemon.ID, pokemon);
+                base.Execute(drawing);
+            }
         }
 
         protected override void UndoCommand(Drawing drawing)

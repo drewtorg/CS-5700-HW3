@@ -38,7 +38,7 @@
             // 
             // colorButton
             // 
-            this.colorButton.Location = new System.Drawing.Point(89, 194);
+            this.colorButton.Location = new System.Drawing.Point(89, 139);
             this.colorButton.Name = "colorButton";
             this.colorButton.Size = new System.Drawing.Size(75, 23);
             this.colorButton.TabIndex = 0;
@@ -49,7 +49,7 @@
             // colorPanel
             // 
             this.colorPanel.BackColor = System.Drawing.SystemColors.Highlight;
-            this.colorPanel.Location = new System.Drawing.Point(36, 88);
+            this.colorPanel.Location = new System.Drawing.Point(36, 33);
             this.colorPanel.Name = "colorPanel";
             this.colorPanel.Size = new System.Drawing.Size(200, 100);
             this.colorPanel.TabIndex = 1;
@@ -57,7 +57,7 @@
             // colorLabel
             // 
             this.colorLabel.AutoSize = true;
-            this.colorLabel.Location = new System.Drawing.Point(96, 72);
+            this.colorLabel.Location = new System.Drawing.Point(96, 17);
             this.colorLabel.Name = "colorLabel";
             this.colorLabel.Size = new System.Drawing.Size(59, 13);
             this.colorLabel.TabIndex = 2;
@@ -65,7 +65,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(36, 226);
+            this.okButton.Location = new System.Drawing.Point(36, 171);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(161, 226);
+            this.cancelButton.Location = new System.Drawing.Point(161, 171);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 4;
@@ -88,7 +88,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 218);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.colorLabel);

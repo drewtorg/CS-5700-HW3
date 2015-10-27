@@ -92,6 +92,7 @@ namespace PokemonPaint
                         Drawing.Do(CommandFactory.Create(CommandFactory.CommandType.Duplicate, PokemonFactory.Create(Drawing.PokemonAtRectangle(LastClick))));
                         break;
                 }
+                Drawing.RefreshDrawing();
             }
         }
 
@@ -138,6 +139,7 @@ namespace PokemonPaint
         private void undoButton_Click(object sender, EventArgs e)
         {
             Drawing.Undo();
+            Drawing.RefreshDrawing();
         }
 
         private void eraseButton_Click(object sender, EventArgs e)
@@ -234,7 +236,7 @@ namespace PokemonPaint
                         NewDrawing();
                         break;
                     case Keys.Z:
-                        Command.Undo(Drawing);
+                        Drawing.Undo();
                         Drawing.RefreshDrawing();
                         break;
                     case Keys.Q:
