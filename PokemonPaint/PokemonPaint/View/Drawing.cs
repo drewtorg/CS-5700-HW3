@@ -23,11 +23,11 @@ namespace PokemonPaint.View
         
         private Graphics graphics;
 
-        public const int canvasX = 64;
-        public const int canvasY = 78;
+        private const int canvasX = 64;
+        private const int canvasY = 78;
 
-        public const int canvasWidth = 627;
-        public const int canvasHeight = 349;
+        private const int canvasWidth = 627;
+        private const int canvasHeight = 349;
 
         public Drawing() { }
 

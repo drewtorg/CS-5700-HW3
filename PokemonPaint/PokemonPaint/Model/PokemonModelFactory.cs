@@ -8,12 +8,10 @@ using PokemonPaint.View;
 
 namespace PokemonPaint.Model
 {
-    public class PokemonModelFactory
+    public static class PokemonModelFactory
     {
         private static Dictionary<Pokemon.PokemonType, PokemonModel> pokemon = null;
         private static object myLock = new object();
-
-        private PokemonModelFactory() { }
 
         public static PokemonModel Create(Pokemon.PokemonType type)
         {
