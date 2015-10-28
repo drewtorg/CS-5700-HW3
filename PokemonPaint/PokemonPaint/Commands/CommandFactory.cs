@@ -10,11 +10,9 @@ using PokemonPaint.View;
 
 namespace PokemonPaint.Commands
 {
-    public class CommandFactory
+    public static class CommandFactory
     {
         public enum CommandType { Create, Delete, Move, Select, Grow, Shrink, Duplicate };
-
-        private CommandFactory() { }
 
         public static Command Create(CommandType type, Pokemon pokemon)
         {

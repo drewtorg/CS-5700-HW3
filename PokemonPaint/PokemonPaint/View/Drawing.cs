@@ -39,7 +39,7 @@ namespace PokemonPaint.View
             BackgroundColor = backgroundColor;
             BackgroundImage = backgroundImage;
             ImageName = imageName;
-            Command.history.Clear();
+            Command.ClearHistory();
         }
 
         public static Drawing Create(Graphics g, Color backgroundColor)

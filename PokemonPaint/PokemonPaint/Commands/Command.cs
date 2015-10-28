@@ -10,7 +10,7 @@ namespace PokemonPaint.Commands
 {
     public abstract class Command
     {
-        public static Stack<Command> history = new Stack<Command>();
+        private static Stack<Command> history = new Stack<Command>();
         public Pokemon pokemon;
 
         public virtual void Execute(Drawing drawing)
@@ -22,6 +22,11 @@ namespace PokemonPaint.Commands
         {
             if (history.Count > 0)
                 history.Pop().UndoCommand(drawing);
+        }
+
+        public static void ClearHistory()
+        {
+            history.Clear();
         }
 
         protected abstract void UndoCommand(Drawing drawing);

@@ -303,7 +303,6 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "PNT Files|*.pnt";
             // 
             // saveFileDialog
