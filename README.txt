@@ -9,3 +9,7 @@ the corresponing types.  The Drawing class also has two facotry methods which ar
 just the Drawing class.  The Command and Undo patterns are seen quite obviously in the Command class heirarchy.  Each Command
 type of Command class has an overrided Execute and Undo method.  Both the Invoker and Receiver in this case is the Drawing class.
 
+The extra credit I chose to implement was that of allowing the user to create more sophisticated backgrounds.  The user actually
+has the ability to use a simple background color or chose to use one of several stock images fom the pokemon world.  It required
+quite a bit more effort, but really makes the project that much more entertaining.
+
